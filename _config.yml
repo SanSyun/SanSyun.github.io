@@ -1,12 +1,12 @@
 title:              Personal blog 
 tagline:            by SanSyun
 description:        Content-focused template for a blog hosted on GitHub Pages.
-url:                http://YourName.github.io
+url:                http://sansyun.github.io
 
 author:
-  name:             Your Name
+  name:             San Syun
   url:              https://twitter.com/YourName
-  email:            YourName@gmail.com
+  email:            schen0303@163.com
 
 # GitHub Pages / Jekyll configuration
 baseurl:            ''
