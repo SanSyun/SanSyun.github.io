@@ -18,3 +18,8 @@ defaults:
       path:         ''
     values:
       layout:       post
+
+# 添加分类支持
+collections:
+  categories:
+    output: true

@@ -4,6 +4,15 @@
   {% include head.html %}
 
   <body>
+    <header class="site-header">
+      <nav class="navbar">
+        <ul>
+          <li><a href="{{ site.baseurl }}/">首页</a></li>
+          <li><a href="{{ site.baseurl }}/categories">分类</a></li>
+          <li><a href="{{ site.baseurl }}/about">关于</a></li>
+        </ul>
+      </nav>
+    </header>
 
     {% include sidebar.html %}
 
@@ -23,6 +32,13 @@
         {{ content }}
       </div>
     </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}. 保留所有权利。</p>
+        <p>Powered by <a href="https://jekyllrb.com/">Jekyll</a>.</p>
+      </div>
+    </footer>
 
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
