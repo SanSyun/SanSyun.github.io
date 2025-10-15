@@ -1,11 +1,11 @@
-title:              Personal blog 
-tagline:            by SanSyun
-description:        Content-focused template for a blog hosted on GitHub Pages.
+title:              San Syun 
+tagline:            Personal blog
+description:        Record of the development process and thoughts.
 url:                http://sansyun.github.io
 
 author:
   name:             San Syun
-  url:              https://twitter.com/YourName
+  url:              http://sansyun.github.io
   email:            schen0303@163.com
 
 # GitHub Pages / Jekyll configuration
