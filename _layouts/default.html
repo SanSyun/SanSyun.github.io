@@ -3,7 +3,7 @@
 
   {% include head.html %}
 
-  <body class="modern-theme">
+  <body class="modern-theme{% if site.background_image or page.background_image %} has-bg{% endif %}" {% if site.background_image or page.background_image %}style="--bg-url: url('{{ site.baseurl }}{% if page.background_image %}{{ page.background_image }}{% else %}{{ site.background_image }}{% endif %}');"{% endif %}>
     <div class="background-layer"></div>
     {% include sidebar.html %}
 
@@ -28,17 +28,22 @@
 
     <footer class="site-footer glass-effect">
       <div class="container">
-        <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}. 保留所有权利。</p>
+        <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}.
         <p>Powered by <a href="https://jekyllrb.com/">Jekyll</a>.</p>
       </div>
     </footer>
 
     <style>
-    .modern-theme {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      position: relative;
-    }
+.modern-theme {
+  min-height: 100vh;
+  position: relative;
+  background: linear-gradient(135deg, #f5f5f5 0%, #d8d8d8 100%);
+  overflow: hidden;
+}
+
+.modern-theme.has-bg {
+  background: transparent;
+}
 
     .background-layer {
       position: fixed;
@@ -47,13 +52,62 @@
       right: 0;
       bottom: 0;
       background: url('{{ site.baseurl }}/images/bg-pattern.png');
-      opacity: 0.05;
-      z-index: -1;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 1; /*背景图层透明度 */
+      z-index: -2;
       pointer-events: none;
+      transition: opacity 0.5s ease, filter 0.5s ease;
+    }
+
+    .modern-theme.has-bg .background-layer {
+      background-image: var(--bg-url);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      opacity: 1;
+    }
+
+    .background-layer::before,
+    .background-layer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, filter 0.5s ease;
+    }
+
+    .background-layer::before {
+      background: inherit;
+      filter: blur(0);
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .background-layer::after {
+      background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(240,240,240,0.55));
+      opacity: 0;
+    }
+
+    .modern-theme.has-bg .background-layer::before {
+      background-image: var(--bg-url);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: blur(22px);
+      opacity: 0.95;
+      transform: scale(1.08);
+    }
+
+    .modern-theme.has-bg .background-layer::after {
+      background: rgba(255, 255, 255, 0.28);
+      opacity: 1;
     }
 
     .glass-effect {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -66,7 +120,7 @@
     }
 
     .glass-module {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-radius: 16px;
@@ -83,14 +137,17 @@
     }
 
     .masthead {
-      padding: 1rem 0;
-      margin-bottom: 2rem;
+      position: sticky; 
+      top: 0;
+      padding: 1.25rem 0;
+      margin-bottom: 3rem;
+      /* z-index: 5; */
     }
 
-    .masthead-title {
-      margin: 0;
-      color: #333;
-    }
+.masthead-title {
+  margin: 0;
+  color: #1f1f1f;
+}
 
     .masthead-title a {
       color: inherit;
@@ -99,7 +156,8 @@
 
     .masthead small {
       font-size: 0.75em;
-      opacity: 0.7;
+      opacity: 0.5;
+      color: #1f1f1f;
     }
 
     .site-footer {
@@ -113,7 +171,6 @@
       z-index: 1;
     }
 
-    /* 响应式调整 */
     @media (max-width: 768px) {
       .glass-module {
         padding: 1rem;
@@ -125,7 +182,7 @@
       }
     }
 
-    /* 文章卡片样式 */
+    /* Categories Page Styles */
     .post {
       background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(10px);
@@ -140,15 +197,15 @@
       transform: translateY(-3px);
     }
 
-    .post-title {
-      margin-top: 0;
-      color: #2c3e50;
-    }
+.post-title {
+  margin-top: 0;
+  color: #1f1f1f;
+}
 
-    .post-date {
-      color: #666;
-      font-size: 0.9em;
-    }
+.post-date {
+  color: #f1f1f1;
+  font-size: 0.9em;
+}
     </style>
 
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
@@ -171,4 +228,3 @@
       })(document);
     </script>
   </body>
-</html>

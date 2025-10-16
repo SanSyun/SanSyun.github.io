@@ -4,47 +4,35 @@ title: 文章分类
 ---
 
 <div class="categories-wrapper">
-  <!-- Linux 分类 -->
-  <div class="category-card">
+  {% assign linux_posts = site.posts | where: "category", "Linux" %}
+  <a class="category-card" href="{{ site.baseurl }}/categories/linux">
     <div class="category-icon">
       <i class="fas fa-terminal"></i>
     </div>
     <h2 class="category-title">Linux</h2>
     <p class="category-description">Linux 系统、命令行、服务器配置等相关文章</p>
-    <a href="{{ site.baseurl }}/categories/linux" class="category-link">
-      查看文章 
-      {% assign linux_posts = site.posts | where: "category", "Linux" %}
-      <span class="post-count">({{ linux_posts | size }} 篇)</span>
-    </a>
-  </div>
+    <span class="post-count">({{ linux_posts | size }} 篇)</span>
+  </a>
 
-  <!-- FPGA 分类 -->
-  <div class="category-card">
+  {% assign fpga_posts = site.posts | where: "category", "FPGA" %}
+  <a class="category-card" href="{{ site.baseurl }}/categories/fpga">
     <div class="category-icon">
       <i class="fas fa-microchip"></i>
     </div>
     <h2 class="category-title">FPGA</h2>
     <p class="category-description">FPGA 开发、硬件设计、Verilog/VHDL 等技术文章</p>
-    <a href="{{ site.baseurl }}/categories/fpga" class="category-link">
-      查看文章
-      {% assign fpga_posts = site.posts | where: "category", "FPGA" %}
-      <span class="post-count">({{ fpga_posts | size }} 篇)</span>
-    </a>
-  </div>
+    <span class="post-count">({{ fpga_posts | size }} 篇)</span>
+  </a>
 
-  <!-- 摄影分类 -->
-  <div class="category-card">
+  {% assign photo_posts = site.posts | where: "category", "摄影" %}
+  <a class="category-card" href="{{ site.baseurl }}/categories/photography">
     <div class="category-icon">
       <i class="fas fa-camera-retro"></i>
     </div>
     <h2 class="category-title">摄影</h2>
     <p class="category-description">摄影技巧、器材评测、后期处理等相关内容</p>
-    <a href="{{ site.baseurl }}/categories/photography" class="category-link">
-      查看文章
-      {% assign photo_posts = site.posts | where: "category", "摄影" %}
-      <span class="post-count">({{ photo_posts | size }} 篇)</span>
-    </a>
-  </div>
+    <span class="post-count">({{ photo_posts | size }} 篇)</span>
+  </a>
 </div>
 
 <!-- 添加 Font Awesome 图标支持 -->
@@ -59,70 +47,73 @@ title: 文章分类
 }
 
 .category-card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
+  display: block;
+  background: rgba(24, 24, 24, 0.85);
+  border-radius: 15px;
+  padding: 2rem 1.8rem;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+  text-decoration: none;
+  color: #f4f4f4;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
-.category-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+.category-card:hover,
+.category-card:focus-visible {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45),
+              0 0 24px rgba(255,255,255,0.1),
+              inset 0 0 25px rgba(255,255,255,0.05);
+  text-decoration: none;
+}
+
+.category-card:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.35);
+  outline-offset: 4px;
 }
 
 .category-icon {
   font-size: 2.5em;
   margin-bottom: 15px;
-  color: #2c3e50;
-}
-
-.category-icon i {
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  color: #f8f8f8;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 15px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
 }
 
 .category-title {
   margin: 0;
-  color: #2c3e50;
-  font-size: 1.5em;
+  color: #ffffff;
+  font-size: 1.6em;
   font-weight: 600;
 }
 
 .category-description {
-  color: #6c757d;
+  color: #f0f0f0;
   margin: 15px 0;
-  font-size: 0.9em;
-  line-height: 1.5;
-}
-
-.category-link {
-  display: inline-block;
-  padding: 8px 20px;
-  background: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 20px;
-  transition: background-color 0.3s;
-}
-
-.category-link:hover {
-  background: #0056b3;
-  text-decoration: none;
-  color: white;
+  font-size: 0.95em;
+  line-height: 1.6;
 }
 
 .post-count {
-  font-size: 0.9em;
-  opacity: 0.8;
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.95em;
+  color: #f4f4f4;
+  font-weight: 600;
+  background: rgba(255,255,255,0.1);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
 /* 响应式调整 */

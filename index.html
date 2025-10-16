@@ -77,7 +77,7 @@ window.addEventListener('resize', adjustTextColor);
   <div class="featured-grid">
     {% for post in site.posts %}
       {% if post.featured %}
-      <article class="featured-card glass-effect">
+      <article class="featured-card">
         {% if post.image %}
         <div class="card-image" style="background-image: url('{{ site.baseurl }}{{ post.image }}');">
           <div class="card-overlay"></div>
@@ -94,7 +94,6 @@ window.addEventListener('resize', adjustTextColor);
             {% endif %}
           </p>
           <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-          <a href="{{ site.baseurl }}{{ post.url }}" class="read-more-btn">阅读全文</a>
         </div>
       </article>
       {% endif %}
@@ -138,7 +137,7 @@ window.addEventListener('resize', adjustTextColor);
 .section-title {
   text-align: center;
   margin-bottom: 3rem;
-  color: #2c3e50;
+  color: #1f1f1f;
   font-size: 2.5em;
   font-weight: 600;
 }
@@ -154,15 +153,20 @@ window.addEventListener('resize', adjustTextColor);
   position: relative;
   border-radius: 15px;
   overflow: hidden;
-  transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(24, 24, 24, 0.85);
+  color: #f4f4f4;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
 }
 
 .featured-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45),
+              0 0 24px rgba(255, 255, 255, 0.1),
+              inset 0 0 25px rgba(255, 255, 255, 0.05);
 }
 
 .card-image {
@@ -183,6 +187,7 @@ window.addEventListener('resize', adjustTextColor);
 
 .card-content {
   padding: 1.5rem;
+  color: inherit;
 }
 
 .card-content h3 {
@@ -191,50 +196,35 @@ window.addEventListener('resize', adjustTextColor);
 }
 
 .card-content h3 a {
-  color: #2c3e50;
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .card-content h3 a:hover {
-  color: #3498db;
+  color: #f0f0f0;
 }
 
-.post-meta {
+.featured-card .post-meta {
   margin-bottom: 1rem;
-  color: #666;
+  color: #f4f4f4;
   font-size: 0.9em;
 }
 
-.category-badge {
+.featured-card .category-badge {
   display: inline-block;
   padding: 0.2rem 0.8rem;
-  background: #3498db;
-  color: white;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
   border-radius: 15px;
   font-size: 0.8em;
   margin-left: 0.5rem;
 }
 
-.excerpt {
-  color: #666;
+.featured-card .excerpt {
+  color: #f0f0f0;
   line-height: 1.6;
   margin-bottom: 1.5rem;
-}
-
-.read-more-btn {
-  display: inline-block;
-  padding: 0.5rem 1.5rem;
-  background: #3498db;
-  color: white;
-  text-decoration: none;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-}
-
-.read-more-btn:hover {
-  background: #2980b9;
-  transform: translateX(5px);
 }
 
 @media (max-width: 768px) {
@@ -305,7 +295,7 @@ window.addEventListener('resize', adjustTextColor);
 .section-title {
   text-align: center;
   margin: 40px 0;
-  color: #2c3e50;
+  color: #1f1f1f;
   font-size: 2em;
 }
 
@@ -318,15 +308,23 @@ window.addEventListener('resize', adjustTextColor);
 }
 
 .featured-card {
-  background: white;
-  border-radius: 10px;
+  position: relative;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(24, 24, 24, 0.85);
+  color: #f4f4f4;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
 }
 
 .featured-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45),
+              0 0 24px rgba(255, 255, 255, 0.1),
+              inset 0 0 25px rgba(255, 255, 255, 0.05);
 }
 
 .card-image {
@@ -336,7 +334,8 @@ window.addEventListener('resize', adjustTextColor);
 }
 
 .card-content {
-  padding: 20px;
+  padding: 1.5rem;
+  color: inherit;
 }
 
 /* 分类预览样式 */
@@ -354,7 +353,7 @@ window.addEventListener('resize', adjustTextColor);
   border-radius: 10px;
   box-shadow: 0 2px 15px rgba(0,0,0,0.1);
   text-decoration: none;
-  color: #2c3e50;
+  color: #1f1f1f;
   transition: transform 0.3s ease;
 }
 
@@ -389,34 +388,35 @@ window.addEventListener('resize', adjustTextColor);
 
 .post-meta {
   font-size: 0.9em;
-  color: #6c757d;
+  color: #5e5e5e;
   margin-bottom: 10px;
 }
 
 .category-badge {
   display: inline-block;
   padding: 3px 8px;
-  background: #e9ecef;
+  background: rgba(0,0,0,0.08);
   border-radius: 15px;
   font-size: 0.8em;
   margin-left: 10px;
+  color: #151515;
 }
 
 .excerpt {
-  color: #6c757d;
+  color: #5e5e5e;
   margin: 10px 0;
   font-size: 0.95em;
   line-height: 1.6;
 }
 
 .read-more {
-  color: #007bff;
+  color: #1f1f1f;
   text-decoration: none;
   font-weight: 500;
 }
 
 .read-more:hover {
-  color: #0056b3;
+  color: #000;
 }
 
 /* 分页导航样式 */
@@ -428,7 +428,7 @@ window.addEventListener('resize', adjustTextColor);
 .pagination-nav a {
   display: inline-block;
   padding: 8px 16px;
-  background: #007bff;
+  background: #1f1f1f;
   color: white;
   text-decoration: none;
   border-radius: 20px;
@@ -436,12 +436,12 @@ window.addEventListener('resize', adjustTextColor);
 }
 
 .pagination-nav a:hover {
-  background: #0056b3;
+  background: #000;
 }
 
 .page-number {
   margin: 0 15px;
-  color: #6c757d;
+  color: #5e5e5e;
 }
 
 /* 响应式调整 */

@@ -2,6 +2,23 @@
 .timeline-section {
   padding: 4rem 0;
   position: relative;
+  background: transparent;
+  overflow: hidden;
+}
+
+.timeline-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  pointer-events: none;
+}
+
+.timeline-section .section-title {
+  color: #1f1f1f;
+  text-shadow: none;
 }
 
 .timeline {
@@ -18,11 +35,11 @@
   transform: translateX(-50%);
   width: 2px;
   height: 100%;
-  background: linear-gradient(180deg, 
-    rgba(52, 152, 219, 0.2) 0%,
-    rgba(52, 152, 219, 0.8) 30%,
-    rgba(52, 152, 219, 0.8) 70%,
-    rgba(52, 152, 219, 0.2) 100%
+  background: linear-gradient(180deg,
+    rgba(80, 80, 80, 0.1) 0%,
+    rgba(120, 120, 120, 0.45) 40%,
+    rgba(120, 120, 120, 0.45) 60%,
+    rgba(80, 80, 80, 0.1) 100%
   );
 }
 
@@ -35,12 +52,16 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  background: #3498db;
-  color: white;
+  background: rgba(36, 36, 36, 0.75);
+  color: #f8f8f8;
   padding: 0.5rem 1.5rem;
   border-radius: 20px;
   font-weight: bold;
   z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .year {
@@ -72,10 +93,10 @@
   top: 50%;
   width: 20px;
   height: 20px;
-  background: #3498db;
+  background: rgba(48, 48, 48, 0.85);
   border-radius: 50%;
-  border: 3px solid #fff;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.07);
   transition: all 0.3s ease;
 }
 
@@ -90,22 +111,23 @@
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(24, 24, 24, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: 12px;
   padding: 1.2rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
+  color: #f4f4f4;
 }
 
 .glass-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(52, 152, 219, 0.5);
-  box-shadow: 0 0 20px rgba(52, 152, 219, 0.3),
-              0 0 30px rgba(52, 152, 219, 0.2),
-              inset 0 0 15px rgba(52, 152, 219, 0.1);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 14px 33px rgba(0, 0, 0, 0.45),
+              0 0 24px rgba(255, 255, 255, 0.1),
+              inset 0 0 25px rgba(255, 255, 255, 0.05);
 }
 
 .timeline-content {
@@ -114,30 +136,31 @@
 
 .post-date {
   font-size: 0.9em;
-  color: #666;
+  color: #f4f4f4;
   margin-bottom: 0.5rem;
 }
 
 .timeline-content h3 {
   margin: 0;
   font-size: 1.1em;
-  color: #2c3e50;
+  color: #f4f4f4;
   margin-bottom: 0.5rem;
 }
 
 .timeline-category {
   display: inline-block;
   padding: 0.2rem 0.8rem;
-  background: rgba(52, 152, 219, 0.1);
-  color: #3498db;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f4f4f4;
   border-radius: 12px;
   font-size: 0.8em;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* 动画效果 */
 .timeline-item:hover::before {
-  box-shadow: 0 0 0 6px rgba(52, 152, 219, 0.3),
-              0 0 20px rgba(52, 152, 219, 0.5);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.1),
+              0 0 20px rgba(255, 255, 255, 0.35);
 }
 
 /* 响应式设计 */

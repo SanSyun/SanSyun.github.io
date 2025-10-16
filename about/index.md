@@ -101,11 +101,11 @@ header:
 
 .profile-name h1 {
   margin: 0;
-  color: #333;
+  color: #1f1f1f;
 }
 
 .tagline {
-  color: #666;
+  color: #5e5e5e;
   font-style: italic;
 }
 
@@ -119,8 +119,8 @@ header:
 
 .profile-section h2 {
   margin-top: 0;
-  color: #2c3e50;
-  border-bottom: 2px solid #eee;
+  color: #1f1f1f;
+  border-bottom: 2px solid #ececec;
   padding-bottom: 10px;
 }
 
@@ -131,11 +131,11 @@ header:
 }
 
 .skill-tag {
-  background: #e9ecef;
+  background: #f0f0f0;
   padding: 5px 15px;
   border-radius: 20px;
   font-size: 0.9em;
-  color: #495057;
+  color: #4d4d4d;
 }
 
 .contact-info {
@@ -151,18 +151,18 @@ header:
 .contact-info i {
   width: 20px;
   margin-right: 10px;
-  color: #007bff;
+  color: #1f1f1f;
 }
 
 /* 链接样式 */
 a {
-  color: #007bff;
+  color: #1f1f1f;
   text-decoration: none;
   transition: color 0.3s;
 }
 
 a:hover {
-  color: #0056b3;
+  color: #000;
 }
 
 /* 响应式设计 */
