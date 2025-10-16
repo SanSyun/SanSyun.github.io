@@ -1,5 +1,7 @@
 ---
 title: Texts + GitHub Pages = Blog
+category: FPGA
+featured: true
 ---
 
 Follow simple [instructions](<http://www.texts.io/support/0017/>) to publish

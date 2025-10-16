@@ -1,0 +1,113 @@
+.sidebar {
+  background: rgba(28, 32, 34, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.sidebar-nav-item {
+  border-radius: 8px;
+  margin: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-nav-item:hover,
+.sidebar-nav-item.active {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+  color: #fff;
+  text-decoration: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2),
+              inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* 添加发光动画效果 */
+.sidebar-nav-item:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.sidebar-nav-item:hover:before {
+  left: 100%;
+}
+
+/* 激活状态的特殊发光效果 */
+.sidebar-nav-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3),
+              inset 0 0 15px rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.sidebar-toggle {
+  background: rgba(28, 32, 34, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(28, 32, 34, 1);
+}
+
+.sidebar-item {
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar span.sidebar-nav-item {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 1px;
+}
+
+/* 修改侧边栏链接颜色 */
+.sidebar a {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar a:hover {
+  color: #fff;
+}
+
+/* 版权信息样式 */
+.sidebar .sidebar-item p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 侧边栏切换按钮的图标颜色 */
+.sidebar-toggle:before {
+  background-image: linear-gradient(to bottom, #fff, #fff 20%, transparent 20%, transparent 40%, #fff 40%, #fff 60%, transparent 60%, transparent 80%, #fff 80%, #fff 100%);
+}

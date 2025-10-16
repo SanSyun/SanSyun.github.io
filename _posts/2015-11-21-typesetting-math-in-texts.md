@@ -1,5 +1,7 @@
 ---
 title: Typesetting Math in Texts
+category: Linux
+featured: true
 ---
 
 Basic math

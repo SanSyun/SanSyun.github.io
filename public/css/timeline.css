@@ -1,0 +1,162 @@
+/* 时间轴样式 */
+.timeline-section {
+  padding: 4rem 0;
+  position: relative;
+}
+
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    rgba(52, 152, 219, 0.2) 0%,
+    rgba(52, 152, 219, 0.8) 30%,
+    rgba(52, 152, 219, 0.8) 70%,
+    rgba(52, 152, 219, 0.2) 100%
+  );
+}
+
+.timeline-year {
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.year-marker {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3498db;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.year {
+  font-size: 1.2em;
+}
+
+.timeline-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.timeline-item {
+  width: calc(50% - 30px);
+  margin-left: auto;
+  position: relative;
+  text-decoration: none;
+}
+
+.timeline-item:nth-child(odd) {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background: #3498db;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+  transition: all 0.3s ease;
+}
+
+.timeline-item:nth-child(odd)::before {
+  right: -40px;
+  transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(even)::before {
+  left: -40px;
+  transform: translateY(-50%);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(52, 152, 219, 0.5);
+  box-shadow: 0 0 20px rgba(52, 152, 219, 0.3),
+              0 0 30px rgba(52, 152, 219, 0.2),
+              inset 0 0 15px rgba(52, 152, 219, 0.1);
+}
+
+.timeline-content {
+  position: relative;
+}
+
+.post-date {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content h3 {
+  margin: 0;
+  font-size: 1.1em;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-category {
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+  border-radius: 12px;
+  font-size: 0.8em;
+}
+
+/* 动画效果 */
+.timeline-item:hover::before {
+  box-shadow: 0 0 0 6px rgba(52, 152, 219, 0.3),
+              0 0 20px rgba(52, 152, 219, 0.5);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 30px;
+  }
+  
+  .year-marker {
+    left: 30px;
+    transform: translateX(-50%);
+  }
+  
+  .timeline-item {
+    width: calc(100% - 60px);
+    margin-left: 60px !important;
+  }
+  
+  .timeline-item::before {
+    left: -35px !important;
+  }
+}

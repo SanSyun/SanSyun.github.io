@@ -77,9 +77,10 @@ window.addEventListener('resize', adjustTextColor);
   <div class="featured-grid">
     {% for post in site.posts %}
       {% if post.featured %}
-      <article class="featured-card">
+      <article class="featured-card glass-effect">
         {% if post.image %}
         <div class="card-image" style="background-image: url('{{ site.baseurl }}{{ post.image }}');">
+          <div class="card-overlay"></div>
         </div>
         {% endif %}
         <div class="card-content">
@@ -93,6 +94,7 @@ window.addEventListener('resize', adjustTextColor);
             {% endif %}
           </p>
           <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+          <a href="{{ site.baseurl }}{{ post.url }}" class="read-more-btn">阅读全文</a>
         </div>
       </article>
       {% endif %}
@@ -100,64 +102,153 @@ window.addEventListener('resize', adjustTextColor);
   </div>
 </section>
 
-<!-- 分类预览 -->
-<section class="categories-preview">
-  <h2 class="section-title">探索分类</h2>
-  <div class="categories-grid">
-    <a href="{{ site.baseurl }}/categories/linux" class="category-item linux">
-      <i class="fas fa-terminal"></i>
-      <h3>Linux</h3>
-      <p>系统配置与开发</p>
-    </a>
-    <a href="{{ site.baseurl }}/categories/fpga" class="category-item fpga">
-      <i class="fas fa-microchip"></i>
-      <h3>FPGA</h3>
-      <p>硬件开发与设计</p>
-    </a>
-    <a href="{{ site.baseurl }}/categories/photography" class="category-item photography">
-      <i class="fas fa-camera-retro"></i>
-      <h3>摄影</h3>
-      <p>摄影技巧与作品</p>
-    </a>
-  </div>
-</section>
-
-<!-- 最新文章 -->
-<section class="latest-posts">
-  <h2 class="section-title">最新文章</h2>
-  <div class="posts-grid">
-    {% for post in paginator.posts limit:6 %}
-    <article class="post-card">
-      <div class="card-content">
-        <p class="post-meta">
-          <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-          {% if post.category %}
-          <span class="category-badge">{{ post.category }}</span>
-          {% endif %}
-        </p>
-        <h3>
-          <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-        </h3>
-        <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-        <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">阅读全文 →</a>
+<!-- 时间轴部分 -->
+<section class="timeline-section">
+  <h2 class="section-title">文章时间线</h2>
+  <div class="timeline">
+    {% assign posts_by_year = site.posts | group_by_exp:"post", "post.date | date: '%Y'" %}
+    {% for year in posts_by_year %}
+    <div class="timeline-year">
+      <div class="year-marker">
+        <span class="year">{{ year.name }}</span>
       </div>
-    </article>
+      <div class="timeline-items">
+        {% for post in year.items %}
+        <a href="{{ site.baseurl }}{{ post.url }}" class="timeline-item glass-card">
+          <div class="timeline-content">
+            <div class="post-date">{{ post.date | date: "%m-%d" }}</div>
+            <h3 class="post-title">{{ post.title }}</h3>
+            {% if post.category %}
+            <span class="timeline-category">{{ post.category }}</span>
+            {% endif %}
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
     {% endfor %}
   </div>
 </section>
 
-<!-- 分页导航 -->
-<nav class="pagination-nav">
-  {% if paginator.previous_page %}
-    <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}" class="prev">← 上一页</a>
-  {% endif %}
+<style>
+.featured-posts {
+  padding: 2rem 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #2c3e50;
+  font-size: 2.5em;
+  font-weight: 600;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.featured-card {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.featured-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.card-content h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5em;
+}
+
+.card-content h3 a {
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.card-content h3 a:hover {
+  color: #3498db;
+}
+
+.post-meta {
+  margin-bottom: 1rem;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 0.2rem 0.8rem;
+  background: #3498db;
+  color: white;
+  border-radius: 15px;
+  font-size: 0.8em;
+  margin-left: 0.5rem;
+}
+
+.excerpt {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.read-more-btn {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.read-more-btn:hover {
+  background: #2980b9;
+  transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+  .featured-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
   
-  <span class="page-number">第 {{ paginator.page }} 页 / 共 {{ paginator.total_pages }} 页</span>
-  
-  {% if paginator.next_page %}
-    <a href="{{ site.baseurl }}{{ paginator.next_page_path }}" class="next">下一页 →</a>
-  {% endif %}
-</nav>
+  .section-title {
+    font-size: 2em;
+    margin-bottom: 2rem;
+  }
+}
+</style>
 
 <!-- 添加 Font Awesome 图标支持 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
