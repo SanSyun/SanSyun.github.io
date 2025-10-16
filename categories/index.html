@@ -1,0 +1,135 @@
+---
+layout: page
+title: 文章分类
+---
+
+<div class="categories-wrapper">
+  <!-- Linux 分类 -->
+  <div class="category-card">
+    <div class="category-icon">
+      <i class="fas fa-terminal"></i>
+    </div>
+    <h2 class="category-title">Linux</h2>
+    <p class="category-description">Linux 系统、命令行、服务器配置等相关文章</p>
+    <a href="{{ site.baseurl }}/categories/linux" class="category-link">
+      查看文章 
+      {% assign linux_posts = site.posts | where: "category", "Linux" %}
+      <span class="post-count">({{ linux_posts | size }} 篇)</span>
+    </a>
+  </div>
+
+  <!-- FPGA 分类 -->
+  <div class="category-card">
+    <div class="category-icon">
+      <i class="fas fa-microchip"></i>
+    </div>
+    <h2 class="category-title">FPGA</h2>
+    <p class="category-description">FPGA 开发、硬件设计、Verilog/VHDL 等技术文章</p>
+    <a href="{{ site.baseurl }}/categories/fpga" class="category-link">
+      查看文章
+      {% assign fpga_posts = site.posts | where: "category", "FPGA" %}
+      <span class="post-count">({{ fpga_posts | size }} 篇)</span>
+    </a>
+  </div>
+
+  <!-- 摄影分类 -->
+  <div class="category-card">
+    <div class="category-icon">
+      <i class="fas fa-camera-retro"></i>
+    </div>
+    <h2 class="category-title">摄影</h2>
+    <p class="category-description">摄影技巧、器材评测、后期处理等相关内容</p>
+    <a href="{{ site.baseurl }}/categories/photography" class="category-link">
+      查看文章
+      {% assign photo_posts = site.posts | where: "category", "摄影" %}
+      <span class="post-count">({{ photo_posts | size }} 篇)</span>
+    </a>
+  </div>
+</div>
+
+<!-- 添加 Font Awesome 图标支持 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+.categories-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.category-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.category-icon {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.category-icon i {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.category-title {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.category-description {
+  color: #6c757d;
+  margin: 15px 0;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.category-link {
+  display: inline-block;
+  padding: 8px 20px;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+.category-link:hover {
+  background: #0056b3;
+  text-decoration: none;
+  color: white;
+}
+
+.post-count {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .categories-wrapper {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+}
+</style>

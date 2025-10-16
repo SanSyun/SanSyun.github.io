@@ -1,0 +1,137 @@
+---
+layout: page
+title: FPGA 文章
+---
+
+<div class="category-posts">
+  <div class="category-header">
+    <i class="fas fa-microchip category-icon"></i>
+    <h1>FPGA</h1>
+    <p class="category-description">FPGA 开发、硬件设计、Verilog/VHDL 等技术文章</p>
+  </div>
+
+  <div class="posts-list">
+    {% assign posts = site.posts | where: "category", "FPGA" %}
+    {% for post in posts %}
+    <article class="post-card">
+      <div class="post-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">
+          {{ post.date | date: "%Y-%m-%d" }}
+        </time>
+      </div>
+      <h2 class="post-title">
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+      </h2>
+      {% if post.excerpt %}
+      <div class="post-excerpt">
+        {{ post.excerpt | strip_html | truncatewords: 50 }}
+      </div>
+      {% endif %}
+      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">阅读全文 →</a>
+    </article>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+.category-posts {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.category-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px 0;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.category-icon {
+  font-size: 3em;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.category-header h1 {
+  margin: 10px 0;
+  color: #2c3e50;
+}
+
+.category-description {
+  color: #6c757d;
+  font-size: 1.1em;
+}
+
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.post-meta {
+  margin-bottom: 10px;
+}
+
+.post-date {
+  color: #6c757d;
+  font-size: 0.9em;
+}
+
+.post-title {
+  margin: 0 0 15px 0;
+}
+
+.post-title a {
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.post-title a:hover {
+  color: #007bff;
+}
+
+.post-excerpt {
+  color: #6c757d;
+  font-size: 0.95em;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.read-more {
+  display: inline-block;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.read-more:hover {
+  color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .category-posts {
+    padding: 10px;
+  }
+  
+  .post-card {
+    padding: 15px;
+  }
+}
+</style>

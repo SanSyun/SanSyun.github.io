@@ -23,3 +23,11 @@ defaults:
 collections:
   categories:
     output: true
+
+# 使用 Minimal Mistakes 的远程主题（固定一个稳定版本）
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-paginate
+  - jekyll-include-cache

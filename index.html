@@ -3,46 +3,371 @@ layout: default
 title: Home
 ---
 
-<div class="categories">
-  <h2>分类</h2>
-  <ul>
-    {% for category in site.categories %}
-      <li><a href="{{ site.baseurl }}/categories/{{ category[0] }}">{{ category[0] }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
-
-<div class="posts">
-  {% for post in paginator.posts %}
-  <div class="post">
-    <h1 class="post-title">
-      <a href="{{ site.baseurl }}{{ post.url }}">
-        {{ post.title }}
-      </a>
-    </h1>
-
-    <span class="post-date">{{ post.date | date_to_string }}</span>
-
-    {{ post.content | strip_html | truncatewords: 50 }}
-
+<!-- 头部横幅 -->
+<div class="hero-banner" id="hero-banner">
+  <div class="hero-content adaptive-text">
+    <h1>{{ site.title }}</h1>
+    <p>{{ site.description }}</p>
   </div>
-  {% endfor %}
 </div>
 
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ site.baseurl }}/page{{paginator.next_page}}">Older</a>
-  {% else %}
-    <span class="pagination-item older">Older</span>
-  {% endif %}
+<script>
+// 动态调整文本颜色
+function adjustTextColor() {
+  const bannerEl = document.getElementById('hero-banner');
+  if (!bannerEl) return;
+
+  // 创建canvas来分析背景图片
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  const img = new Image();
+  
+  img.crossOrigin = "Anonymous";
+  img.src = getComputedStyle(bannerEl).backgroundImage.slice(4, -1).replace(/['"]/g, '');
+  
+  img.onload = function() {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    context.drawImage(img, 0, 0);
+    
+    // 采样点（中心区域）
+    const imageData = context.getImageData(
+      Math.floor(canvas.width / 4),
+      Math.floor(canvas.height / 4),
+      Math.floor(canvas.width / 2),
+      Math.floor(canvas.height / 2)
+    );
+    
+    let r = 0, g = 0, b = 0, count = 0;
+    
+    // 计算平均亮度
+    for (let i = 0; i < imageData.data.length; i += 4) {
+      r += imageData.data[i];
+      g += imageData.data[i + 1];
+      b += imageData.data[i + 2];
+      count++;
+    }
+    
+    r = Math.floor(r / count);
+    g = Math.floor(g / count);
+    b = Math.floor(b / count);
+    
+    // 计算亮度
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    
+    // 设置标题为浅色
+    const textElements = document.querySelectorAll('.adaptive-text');
+    textElements.forEach(el => {
+      el.style.color = '#fff';
+      el.style.textShadow = '0 2px 4px rgba(0,0,0,0.7), 0 0 10px rgba(0,0,0,0.4)';
+    });
+  };
+}
+
+// 页面加载完成后执行
+document.addEventListener('DOMContentLoaded', adjustTextColor);
+
+// 窗口大小改变时重新执行
+window.addEventListener('resize', adjustTextColor);
+</script>
+
+<!-- 精选文章 -->
+<section class="featured-posts">
+  <h2 class="section-title">精选文章</h2>
+  <div class="featured-grid">
+    {% for post in site.posts %}
+      {% if post.featured %}
+      <article class="featured-card">
+        {% if post.image %}
+        <div class="card-image" style="background-image: url('{{ site.baseurl }}{{ post.image }}');">
+        </div>
+        {% endif %}
+        <div class="card-content">
+          <h3>
+            <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+          </h3>
+          <p class="post-meta">
+            <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+            {% if post.category %}
+            <span class="category-badge">{{ post.category }}</span>
+            {% endif %}
+          </p>
+          <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+        </div>
+      </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<!-- 分类预览 -->
+<section class="categories-preview">
+  <h2 class="section-title">探索分类</h2>
+  <div class="categories-grid">
+    <a href="{{ site.baseurl }}/categories/linux" class="category-item linux">
+      <i class="fas fa-terminal"></i>
+      <h3>Linux</h3>
+      <p>系统配置与开发</p>
+    </a>
+    <a href="{{ site.baseurl }}/categories/fpga" class="category-item fpga">
+      <i class="fas fa-microchip"></i>
+      <h3>FPGA</h3>
+      <p>硬件开发与设计</p>
+    </a>
+    <a href="{{ site.baseurl }}/categories/photography" class="category-item photography">
+      <i class="fas fa-camera-retro"></i>
+      <h3>摄影</h3>
+      <p>摄影技巧与作品</p>
+    </a>
+  </div>
+</section>
+
+<!-- 最新文章 -->
+<section class="latest-posts">
+  <h2 class="section-title">最新文章</h2>
+  <div class="posts-grid">
+    {% for post in paginator.posts limit:6 %}
+    <article class="post-card">
+      <div class="card-content">
+        <p class="post-meta">
+          <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+          {% if post.category %}
+          <span class="category-badge">{{ post.category }}</span>
+          {% endif %}
+        </p>
+        <h3>
+          <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        </h3>
+        <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+        <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">阅读全文 →</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- 分页导航 -->
+<nav class="pagination-nav">
   {% if paginator.previous_page %}
-    {% if paginator.page == 2 %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}/">Newer</a>
-    {% else %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}/page{{paginator.previous_page}}">Newer</a>
-    {% endif %}
-  {% else %}
-    <span class="pagination-item newer">Newer</span>
+    <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}" class="prev">← 上一页</a>
   {% endif %}
-</div>
+  
+  <span class="page-number">第 {{ paginator.page }} 页 / 共 {{ paginator.total_pages }} 页</span>
+  
+  {% if paginator.next_page %}
+    <a href="{{ site.baseurl }}{{ paginator.next_page_path }}" class="next">下一页 →</a>
+  {% endif %}
+</nav>
+
+<!-- 添加 Font Awesome 图标支持 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+/* 头部横幅样式 */
+.hero-banner {
+  background: url('{{ site.baseurl }}/images/banner-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 100px 20px;
+  text-align: center;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.hero-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.hero-content h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.hero-content p {
+  font-size: 1.2em;
+  max-width: 600px;
+  margin: 0 auto;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.adaptive-text {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* 通用部分样式 */
+.section-title {
+  text-align: center;
+  margin: 40px 0;
+  color: #2c3e50;
+  font-size: 2em;
+}
+
+/* 精选文章样式 */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.featured-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.featured-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+/* 分类预览样式 */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.category-item {
+  text-align: center;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  text-decoration: none;
+  color: #2c3e50;
+  transition: transform 0.3s ease;
+}
+
+.category-item:hover {
+  transform: translateY(-5px);
+}
+
+.category-item i {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+/* 最新文章样式 */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.post-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+}
+
+.post-meta {
+  font-size: 0.9em;
+  color: #6c757d;
+  margin-bottom: 10px;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  background: #e9ecef;
+  border-radius: 15px;
+  font-size: 0.8em;
+  margin-left: 10px;
+}
+
+.excerpt {
+  color: #6c757d;
+  margin: 10px 0;
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+
+.read-more {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.read-more:hover {
+  color: #0056b3;
+}
+
+/* 分页导航样式 */
+.pagination-nav {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.pagination-nav a {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+.pagination-nav a:hover {
+  background: #0056b3;
+}
+
+.page-number {
+  margin: 0 15px;
+  color: #6c757d;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .hero-banner {
+    padding: 60px 20px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2em;
+  }
+  
+  .featured-grid,
+  .categories-grid,
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 
