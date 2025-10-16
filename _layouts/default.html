@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div class="container">
+      <div class="container content-container">
         <div class="content glass-module">
           {{ content }}
         </div>
@@ -47,7 +47,7 @@
       right: 0;
       bottom: 0;
       background: url('{{ site.baseurl }}/images/bg-pattern.png');
-      opacity: 0.1;
+      opacity: 0.05;
       z-index: -1;
       pointer-events: none;
     }
@@ -61,6 +61,10 @@
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
 
+    .wrap > .container.content-container {
+      max-width: clamp(60rem, 90vw, 96rem) !important;
+    }
+
     .glass-module {
       background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(10px);
@@ -68,7 +72,7 @@
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.3);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
+      padding: clamp(1.5rem, 4vw, 3rem);
       margin-bottom: 2rem;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
