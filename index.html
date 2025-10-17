@@ -73,7 +73,7 @@ window.addEventListener('resize', adjustTextColor);
 
 <!-- 精选文章 -->
 <section class="featured-posts">
-  <h2 class="section-title">精选文章</h2>
+  <h2 class="section-title">Featured Posts</h2>
   <div class="featured-grid">
     {% for post in site.posts %}
       {% if post.featured %}
@@ -103,7 +103,7 @@ window.addEventListener('resize', adjustTextColor);
 
 <!-- 时间轴部分 -->
 <section class="timeline-section">
-  <h2 class="section-title">文章时间线</h2>
+  <h2 class="section-title">Posts Timeline</h2>
   <div class="timeline">
     {% assign posts_by_year = site.posts | group_by_exp:"post", "post.date | date: '%Y'" %}
     {% for year in posts_by_year %}
@@ -252,7 +252,7 @@ window.addEventListener('resize', adjustTextColor);
   padding: 100px 20px;
   text-align: center;
   margin-bottom: 40px;
-  border-radius: 10px;
+  border-radius: 16px;
   position: relative;
 }
 
@@ -264,7 +264,7 @@ window.addEventListener('resize', adjustTextColor);
   right: 0;
   bottom: 0;
   background: rgba(0,0,0,0.3);
-  border-radius: 10px;
+  border-radius: 16px;
   transition: background-color 0.3s ease;
 }
 
@@ -275,9 +275,10 @@ window.addEventListener('resize', adjustTextColor);
 }
 
 .hero-content h1 {
-  font-size: 2.5em;
+  font-size: 3.5em;
   margin-bottom: 20px;
   transition: color 0.3s ease, text-shadow 0.3s ease;
+  color: #fff;
 }
 
 .hero-content p {

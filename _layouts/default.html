@@ -10,7 +10,7 @@
     <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
          content to avoid any CSS collisions with our real content. -->
     <div class="wrap">
-      <div class="masthead glass-effect">
+      <div class="masthead glass-effect fixed-header">
         <div class="container">
           <h3 class="masthead-title">
             <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
@@ -19,6 +19,7 @@
         </div>
       </div>
 
+      <div class="header-spacer"></div>
       <div class="container content-container">
         <div class="content glass-module">
           {{ content }}
@@ -38,11 +39,27 @@
   min-height: 100vh;
   position: relative;
   background: linear-gradient(135deg, #f5f5f5 0%, #d8d8d8 100%);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .modern-theme.has-bg {
   background: transparent;
+}
+
+.fixed-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-spacer {
+  height: 100px; /* 根据顶部栏高度调整 */
 }
 
     .background-layer {

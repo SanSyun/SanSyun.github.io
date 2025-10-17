@@ -52,20 +52,52 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(36, 36, 36, 0.75);
-  color: #f8f8f8;
-  padding: 0.5rem 1.5rem;
-  border-radius: 20px;
+  background: rgba(28, 28, 28, 0.85);
+  color: #ffffff;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
   font-weight: bold;
   z-index: 2;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2),
+              0 20px 48px rgba(0, 0, 0, 0.1),
+              inset 0 1px 1px rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.year-marker:hover {
+  transform: translateX(-50%) translateY(-2px);
+  background: rgba(32, 32, 32, 0.9);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25),
+              0 25px 58px rgba(0, 0, 0, 0.15),
+              inset 0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
 .year {
-  font-size: 1.2em;
+  font-size: 1.3em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: inline-block;
+  position: relative;
+  padding: 0 5px;
+}
+
+.year::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
 }
 
 .timeline-items {
