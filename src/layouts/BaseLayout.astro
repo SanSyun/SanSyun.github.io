@@ -52,6 +52,94 @@ const copy = siteCopy[locale];
         <p>{copy.footer}</p>
       </footer>
     </div>
+    <script is:inline>
+      const formatCodeLanguage = (raw) => {
+        if (!raw) return "Text";
+        const normalized = raw.toLowerCase();
+        const labels = {
+          js: "JavaScript",
+          ts: "TypeScript",
+          sh: "Shell",
+          bash: "Bash",
+          zsh: "Zsh",
+          c: "C",
+          cpp: "C++",
+          py: "Python",
+          yaml: "YAML",
+          yml: "YAML",
+          md: "Markdown",
+          make: "Makefile",
+          makefile: "Makefile",
+          text: "Text",
+          plaintext: "Text"
+        };
+        return labels[normalized] ?? raw;
+      };
+
+      const detectCodeLanguage = (pre) => {
+        const code = pre.querySelector("code");
+        const classNames = [pre.className, code?.className ?? ""].join(" ");
+        const classMatch = classNames.match(/language-([\w+-]+)/i);
+        return code?.dataset.language || pre.dataset.language || classMatch?.[1] || "text";
+      };
+
+      const enhanceCodeBlocks = () => {
+        document.querySelectorAll(".article-shell article pre").forEach((pre) => {
+          if (pre.parentElement?.classList.contains("code-block-shell")) return;
+
+          const shell = document.createElement("div");
+          shell.className = "code-block-shell";
+
+          const toolbar = document.createElement("div");
+          toolbar.className = "code-block-toolbar";
+
+          const language = document.createElement("span");
+          language.className = "code-block-language";
+          language.textContent = formatCodeLanguage(detectCodeLanguage(pre));
+
+          const copyButton = document.createElement("button");
+          copyButton.type = "button";
+          copyButton.className = "code-block-copy";
+          copyButton.setAttribute("aria-label", "复制代码");
+          copyButton.setAttribute("title", "复制代码");
+          copyButton.innerHTML = `
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M9 7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z"></path>
+              <path d="M5 15a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2"></path>
+            </svg>
+          `;
+          copyButton.addEventListener("click", async () => {
+            const text = pre.querySelector("code")?.innerText ?? pre.innerText;
+            try {
+              await navigator.clipboard.writeText(text);
+              copyButton.dataset.state = "copied";
+              copyButton.disabled = true;
+              window.setTimeout(() => {
+                delete copyButton.dataset.state;
+                copyButton.disabled = false;
+              }, 1400);
+            } catch {
+              copyButton.dataset.state = "failed";
+              window.setTimeout(() => {
+                delete copyButton.dataset.state;
+              }, 1400);
+            }
+          });
+
+          toolbar.append(language, copyButton);
+          pre.before(shell);
+          shell.append(toolbar, pre);
+        });
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", enhanceCodeBlocks, { once: true });
+      } else {
+        enhanceCodeBlocks();
+      }
+
+      document.addEventListener("astro:page-load", enhanceCodeBlocks);
+    </script>
   </body>
 </html>
 
@@ -499,13 +587,22 @@ const copy = siteCopy[locale];
   .toc-list a {
     display: block;
     color: var(--muted);
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.94rem;
+    line-height: 1.6;
     overflow-wrap: anywhere;
   }
 
-  .toc-item-depth-3 {
-    padding-left: 14px;
+  .toc-item-depth-1 a {
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .toc-item-depth-2 {
+    padding-left: 16px;
+  }
+
+  .toc-item-depth-2 a {
+    font-size: 0.9rem;
   }
 
   .article-shell article {
@@ -538,6 +635,133 @@ const copy = siteCopy[locale];
     margin: 1.5rem 0;
     padding-left: 1rem;
     border-left: 3px solid var(--accent-soft);
+  }
+
+  .article-shell article .code-block-shell {
+    margin: 1.2rem 0;
+    border: 0;
+    border-radius: 0;
+    overflow: hidden;
+    background: #edf3f6;
+  }
+
+  .article-shell article .code-block-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 5px 9px;
+    background: #38c2e5;
+  }
+
+  .article-shell article .code-block-language {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    line-height: 1;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+  }
+
+  .article-shell article .code-block-language::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+  }
+
+  .article-shell article .code-block-copy {
+    appearance: none;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 0;
+    background: transparent;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.18s ease, opacity 0.18s ease;
+  }
+
+  .article-shell article .code-block-copy svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+    margin: 0 auto;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .article-shell article .code-block-copy:hover,
+  .article-shell article .code-block-copy:focus-visible {
+    background: rgba(255, 255, 255, 0.14);
+    outline: none;
+  }
+
+  .article-shell article .code-block-copy:disabled {
+    cursor: default;
+  }
+
+  .article-shell article .code-block-copy[data-state="copied"] {
+    color: #d8fff2;
+  }
+
+  .article-shell article .code-block-copy[data-state="failed"] {
+    color: #ffe1e1;
+  }
+
+  .article-shell article .code-block-shell pre {
+    margin: 0;
+    padding: 1px 0;
+    border: 0;
+    border-radius: 0;
+    background: #edf3f6 !important;
+  }
+
+  .article-shell article .code-block-shell pre code {
+    display: block;
+    font-size: 0.82rem;
+    line-height: 1.15;
+    white-space: pre;
+    counter-reset: code-line;
+  }
+
+  .article-shell article .code-block-shell pre code .line {
+    position: relative;
+    display: block;
+    min-height: 1.16em;
+    padding: 0 10px 0 40px;
+  }
+
+  .article-shell article .code-block-shell pre code .line::before {
+    counter-increment: code-line;
+    content: counter(code-line);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 26px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #8adfe4;
+    color: #ffffff;
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 0.68rem;
+    line-height: 1;
+  }
+
+  .article-shell article .code-block-shell pre code .line:empty::after {
+    content: " ";
   }
 
   .article-summary {
@@ -678,5 +902,3 @@ const copy = siteCopy[locale];
     }
   }
 </style>
-
-

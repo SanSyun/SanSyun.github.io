@@ -22,7 +22,7 @@ const { Content, headings } = await render(note);
         <h2 class="article-toc-title">On this page</h2>
         <ul class="toc-list">
           {headings
-            .filter((heading) => heading.depth === 2 || heading.depth === 3)
+            .filter((heading) => heading.depth === 1 || heading.depth === 2)
             .map((heading) => (
               <li class={`toc-item-depth-${heading.depth}`}>
                 <a href={`#${heading.slug}`}>{heading.text}</a>
