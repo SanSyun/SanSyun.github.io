@@ -1,6 +1,5 @@
 ﻿---
 import { getCollection } from "astro:content";
-import EntryCard from "../components/EntryCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatDate } from "../lib/i18n";
 
@@ -19,77 +18,81 @@ const notes = (await getCollection("zh-notes", ({ data }) => !data.draft))
 >
   <section class="hero">
     <div class="hero-card panel">
-      <span class="eyebrow">Independent publication</span>
-      <h1 class="hero-title">Embedded systems work, notes, and long-term technical accumulation.</h1>
+      <span class="eyebrow">Embedded systems journal</span>
+      <h1 class="hero-title">Projects, notes, and low-level engineering work collected in one place.</h1>
       <p class="lede">
-        This site organizes my project records, study notes, and engineering reflections, with a focus
-        on Embedded Linux drivers, RTOS, MCU, and low-level systems development.
+        I focus on Embedded Linux drivers, RTOS, MCU, FPGA collaboration, and performance-oriented system design. This site is a structured archive of project delivery, technical review, and engineering writing.
       </p>
       <ul class="hero-meta">
         <li>Embedded Linux Drivers</li>
         <li>RTOS</li>
         <li>MCU</li>
-        <li>Keep Hungry</li>
+        <li>FPGA Collaboration</li>
       </ul>
-      <a class="button-link" href="/projects">Browse projects</a>
+      <a class="button-link" href="/projects">View selected projects</a>
     </div>
 
-    <div class="hero-sidebar">
-      <aside class="sidebar-card panel">
-        <span class="small-label">Focus</span>
-        <p>Embedded Linux Drivers / RTOS / MCU</p>
-      </aside>
-      <aside class="sidebar-card panel">
-        <span class="small-label">Contact</span>
-        <p><a class="text-link" href="mailto:schen030@163.com">schen030@163.com</a></p>
-      </aside>
-      <aside class="sidebar-card panel">
-        <span class="small-label">Motto</span>
-        <p>Keep Hungry</p>
-      </aside>
+    <div class="hero-visual">
+      <img src="/images/home/bg-pattern.png" alt="Abstract patterned background" loading="eager" decoding="async" />
     </div>
   </section>
 
   <section class="content-grid">
-    <div class="content-card panel">
-      <div class="meta-line" style="margin-bottom: 16px;">
-        <span class="eyebrow">Selected projects</span>
-      </div>
-      <h2 class="section-title">Recent project records</h2>
-      <div class="list-block">
-        {projects.map((project) => (
-          <EntryCard
-            href={`/projects/${project.id}`}
-            title={project.data.title}
-            description={project.data.description}
-            meta={[
-              formatDate(project.data.date),
-              project.data.role,
-              project.data.duration
-            ]}
-            tags={project.data.stack}
-          />
-        ))}
-      </div>
-    </div>
+    <div class="home-columns">
+      <section class="home-section">
+        <div class="home-section-header">
+          <h2 class="home-section-title">Selected Projects</h2>
+          <a class="home-section-link" href="/projects">All projects</a>
+        </div>
 
-    <aside class="content-card panel">
-      <div class="meta-line" style="margin-bottom: 16px;">
-        <span class="eyebrow">Field notes</span>
-      </div>
-      <h2 class="section-title">Latest notes</h2>
-      <div class="list-block">
+        {projects.map((project) => (
+          <article class="home-feature-card">
+            <div class="home-card-topline">
+              <span class="home-card-type">Project</span>
+              <span>{project.data.role}</span>
+              <span>{formatDate(project.data.date)}</span>
+            </div>
+            <a class="home-headline-link" href={`/projects/${project.id}`}>{project.data.title}</a>
+            <p>{project.data.description}</p>
+            <p class="home-author-line">{project.data.stack.join(" / ")}</p>
+          </article>
+        ))}
+      </section>
+
+      <section class="home-section">
+        <div class="home-section-header">
+          <h2 class="home-section-title">Recent Notes</h2>
+          <a class="home-section-link" href="/notes">All notes</a>
+        </div>
+
         {notes.map((note) => (
-          <article class="note-card">
-            <div class="meta-line">
-              <span>{note.data.category}</span>
+          <article class="home-feature-card">
+            <div class="home-card-topline">
+              <span class="home-card-type">{note.data.category}</span>
               <span>{formatDate(note.data.date)}</span>
             </div>
-            <h3><a class="text-link" href={`/notes/${note.id}`}>{note.data.title}</a></h3>
+            <a class="home-headline-link" href={`/notes/${note.id}`}>{note.data.title}</a>
             <p>{note.data.description}</p>
           </article>
         ))}
-      </div>
+      </section>
+    </div>
+
+    <aside class="home-cover-card">
+      <div class="home-cover-visual" aria-hidden="true"></div>
+      <p class="eyebrow">Current focus</p>
+      <h2 class="section-title" style="font-size: 1.7rem; margin: 0; line-height: 1.1;">Embedded Linux Drivers, RTOS, and MCU practice</h2>
+      <p>
+        Building a long-term technical archive around driver development, board bring-up, performance optimization, and embedded system review.
+      </p>
+      <ul class="stat-list">
+        <li>Linux Driver</li>
+        <li>ZYNQ</li>
+        <li>RK3568</li>
+        <li>STM32</li>
+      </ul>
+      <a class="text-link" href="/about">Read profile</a>
     </aside>
   </section>
 </BaseLayout>
+
