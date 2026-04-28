@@ -18,14 +18,14 @@ const { Content, headings } = await render(project);
 <BaseLayout title={`${project.data.title} | Projects`} description={project.data.description}>
   <section class="article-layout">
     {headings.length > 0 && (
-      <aside class="article-toc">
+      <aside class="article-toc" data-article-toc>
         <h2 class="article-toc-title">On this page</h2>
-        <ul class="toc-list">
+        <ul class="toc-list" data-toc-list>
           {headings
             .filter((heading) => heading.depth === 2 || heading.depth === 3)
             .map((heading) => (
               <li class={`toc-item-depth-${heading.depth}`}>
-                <a href={`#${heading.slug}`}>{heading.text}</a>
+                <a href={`#${heading.slug}`} data-toc-link>{heading.text}</a>
               </li>
             ))}
         </ul>
@@ -63,7 +63,7 @@ const { Content, headings } = await render(project);
           </ul>
         )}
       </div>
-      <article>
+      <article data-article-content>
         <Content />
       </article>
     </section>

@@ -3,7 +3,7 @@
 type SiteCopy = {
   lang: string;
   brandNote: string;
-  footer: string;
+  footer?: string;
   nav: Array<{ href: string; label: string }>;
 };
 
@@ -11,7 +11,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   en: {
     lang: "en",
     brandNote: "Projects, notes, and ongoing research.",
-    footer: "Built with Astro and Markdown. Designed for calm reading and clear hiring signals.",
     nav: [
       { href: "/", label: "Home" },
       { href: "/projects", label: "Projects" },
