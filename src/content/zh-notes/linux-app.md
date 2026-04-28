@@ -1,11 +1,11 @@
 ---
-title: "Linux 应用开发入门：编译、输入系统与多线程编程"
+title: "Linux应用开发：编译、输入系统与多线程编程"
 description: "从 GCC 编译流程与 Makefile 入手，继续整理输入子系统应用编程、常见编译排错方法，以及 Linux 多线程同步中的互斥锁、信号量和条件变量。"
-date: "2026-04-27"
+date: "2026-04-25"
 draft: false
 featured: false
 tags: ["Linux", "GCC", "Makefile", "C", "Build"]
-readingTime: "10 分钟"
+readingTime: "30 分钟"
 category: "Linux 应用开发"
 ---
 # 第一部分 GCC编译

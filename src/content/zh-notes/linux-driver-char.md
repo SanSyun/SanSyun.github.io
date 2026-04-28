@@ -1,11 +1,11 @@
 ﻿---
-title: "RK3568 字符设备驱动开发入门与实战"
+title: "Linux驱动开发：字符设备驱动"
 description: "从字符设备模型、file_operations、模块加载，到 RK3568 平台上板测试，梳理一个最小字符设备驱动的完整开发路径。"
-date: "2026-01-07"
+date: "2026-04-28"
 draft: false
 featured: true
 tags: ["RK3568", "Linux Driver", "Character Device", "Kernel"]
-readingTime: "15 分钟"
+readingTime: "30 分钟"
 category: "驱动开发"
 ---
 
