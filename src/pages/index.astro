@@ -16,83 +16,50 @@ const notes = (await getCollection("zh-notes", ({ data }) => !data.draft))
   title="SUNCHEN | Embedded Systems Publication"
   description="SUNCHEN's personal site focused on Embedded Linux drivers, RTOS, MCU, and technical notes."
 >
-  <section class="hero">
-    <div class="hero-card panel">
-      <span class="eyebrow">Embedded systems journal</span>
-      <h1 class="hero-title">Projects, notes, and low-level engineering work collected in one place.</h1>
-      <p class="lede">
-        I focus on Embedded Linux drivers, RTOS, MCU, FPGA collaboration, and performance-oriented system design. This site is a structured archive of project delivery, technical review, and engineering writing.
-      </p>
-      <ul class="hero-meta">
-        <li>Embedded Linux Drivers</li>
-        <li>RTOS</li>
-        <li>MCU</li>
-        <li>FPGA Collaboration</li>
-      </ul>
-      <a class="button-link" href="/projects">View selected projects</a>
-    </div>
-
-    <div class="hero-visual">
-      <img src="/images/home/bg-pattern.png" alt="Abstract patterned background" loading="eager" decoding="async" />
+  <section class="home-hero" aria-label="Embedded systems journal">
+    <div class="home-hero-glass">
+      <span class="home-hero-label">Embedded systems journal</span>
     </div>
   </section>
 
-  <section class="content-grid">
-    <div class="home-columns">
-      <section class="home-section">
-        <div class="home-section-header">
-          <h2 class="home-section-title">Selected Projects</h2>
-          <a class="home-section-link" href="/projects">All projects</a>
-        </div>
+  <section class="home-feed-grid" aria-label="Homepage entries">
+    <section class="home-section">
+      <div class="home-section-header">
+        <h2 class="home-section-title">Selected Projects</h2>
+        <a class="home-section-link" href="/projects">All projects</a>
+      </div>
 
-        {projects.map((project) => (
-          <article class="home-feature-card">
-            <div class="home-card-topline">
-              <span class="home-card-type">Project</span>
-              <span>{project.data.role}</span>
-              <span>{formatDate(project.data.date)}</span>
-            </div>
-            <a class="home-headline-link" href={`/projects/${project.id}`}>{project.data.title}</a>
-            <p>{project.data.description}</p>
-            <p class="home-author-line">{project.data.stack.join(" / ")}</p>
-          </article>
-        ))}
-      </section>
+      {projects.map((project) => (
+        <article class="home-feature-card">
+          <div class="home-card-topline">
+            <span class="home-card-type">Project</span>
+            <span>{project.data.role}</span>
+            <span>{formatDate(project.data.date)}</span>
+          </div>
+          <a class="home-headline-link" href={`/projects/${project.id}`}>{project.data.title}</a>
+          <p>{project.data.description}</p>
+          <p class="home-author-line">{project.data.stack.join(" / ")}</p>
+        </article>
+      ))}
+    </section>
 
-      <section class="home-section">
-        <div class="home-section-header">
-          <h2 class="home-section-title">Recent Notes</h2>
-          <a class="home-section-link" href="/notes">All notes</a>
-        </div>
+    <section class="home-section">
+      <div class="home-section-header">
+        <h2 class="home-section-title">Recent Notes</h2>
+        <a class="home-section-link" href="/notes">All notes</a>
+      </div>
 
-        {notes.map((note) => (
-          <article class="home-feature-card">
-            <div class="home-card-topline">
-              <span class="home-card-type">{note.data.category}</span>
-              <span>{formatDate(note.data.date)}</span>
-            </div>
-            <a class="home-headline-link" href={`/notes/${note.id}`}>{note.data.title}</a>
-            <p>{note.data.description}</p>
-          </article>
-        ))}
-      </section>
-    </div>
-
-    <aside class="home-cover-card">
-      <div class="home-cover-visual" aria-hidden="true"></div>
-      <p class="eyebrow">Current focus</p>
-      <h2 class="section-title" style="font-size: 1.7rem; margin: 0; line-height: 1.1;">Embedded Linux Drivers, RTOS, and MCU practice</h2>
-      <p>
-        Building a long-term technical archive around driver development, board bring-up, performance optimization, and embedded system review.
-      </p>
-      <ul class="stat-list">
-        <li>Linux Driver</li>
-        <li>ZYNQ</li>
-        <li>RK3568</li>
-        <li>STM32</li>
-      </ul>
-      <a class="text-link" href="/about">Read profile</a>
-    </aside>
+      {notes.map((note) => (
+        <article class="home-feature-card">
+          <div class="home-card-topline">
+            <span class="home-card-type">{note.data.category}</span>
+            <span>{formatDate(note.data.date)}</span>
+          </div>
+          <a class="home-headline-link" href={`/notes/${note.id}`}>{note.data.title}</a>
+          <p>{note.data.description}</p>
+        </article>
+      ))}
+    </section>
   </section>
 </BaseLayout>
 
