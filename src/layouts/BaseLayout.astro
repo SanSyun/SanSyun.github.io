@@ -457,17 +457,30 @@ const isActive = (href: string) => {
 
   .home-hero {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 410px;
-    padding: 34px;
+    display: grid;
+    place-items: center;
+    min-height: 0;
+    padding: 0;
     margin-bottom: 36px;
     overflow: hidden;
     border: 1px solid var(--border);
-    background:
-      linear-gradient(rgba(5, 17, 22, 0.1), rgba(5, 17, 22, 0.36)),
-      url("/images/home/bg-pattern.png") center / cover no-repeat;
+    background: #08181d;
+  }
+
+  .home-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(rgba(5, 17, 22, 0.1), rgba(5, 17, 22, 0.36));
+  }
+
+  .home-hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    grid-area: 1 / 1;
   }
 
   .hero-card,
@@ -480,6 +493,8 @@ const isActive = (href: string) => {
   }
 
   .home-hero-glass {
+    grid-area: 1 / 1;
+    z-index: 2;
     width: 33.333%;
     min-width: 360px;
     max-width: 440px;
@@ -970,8 +985,8 @@ const isActive = (href: string) => {
     }
 
     .home-hero {
-      min-height: 340px;
-      padding: 28px;
+      min-height: 0;
+      padding: 0;
     }
 
     .article-toc {
@@ -1044,9 +1059,9 @@ const isActive = (href: string) => {
     }
 
     .home-hero {
-      min-height: 260px;
+      min-height: 0;
       margin-bottom: 28px;
-      padding: 18px;
+      padding: 0;
     }
 
     .home-hero-glass {
@@ -1384,16 +1399,17 @@ const isActive = (href: string) => {
   }
 
   .home-hero {
-    min-height: 245px;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 38px 42px;
+    min-height: 0;
+    place-items: center;
+    padding: 0;
     margin-bottom: 26px;
     border: 2px solid var(--card-bd);
-    background:
-      linear-gradient(rgba(252, 251, 247, 0.22), rgba(252, 251, 247, 0.52)),
-      url("/images/home/bg-pattern.png") center 44% / cover no-repeat;
+    background: #050505;
     box-shadow: var(--px-d2) var(--px-shadow);
+  }
+
+  .home-hero::after {
+    background: linear-gradient(rgba(252, 251, 247, 0.1), rgba(17, 17, 17, 0.2));
   }
 
   .home-hero-glass {
@@ -1410,8 +1426,8 @@ const isActive = (href: string) => {
 
   .home-hero-label {
     color: #ffffff;
-    font-size: 10.65rem;
-    line-height: 1;
+    font-size: clamp(1rem, 2.2vw, 2rem);
+    line-height: 1.2;
     font-weight: 800;
     letter-spacing: 0;
     text-align: center;
@@ -1800,12 +1816,12 @@ const isActive = (href: string) => {
     }
 
     .home-hero {
-      min-height: 190px;
-      padding: 24px;
+      min-height: 0;
+      padding: 0;
     }
 
     .home-hero-label {
-      font-size: 2.1rem;
+      font-size: 1rem;
     }
 
     .home-section-header {
