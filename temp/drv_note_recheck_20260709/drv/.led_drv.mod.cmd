@@ -1,0 +1,1 @@
+cmd_/root/rk3568/rk_project/drv_project/test_platform_led/drv/led_drv.mod := { echo  /root/rk3568/rk_project/drv_project/test_platform_led/drv/led_drv.o;  echo; } > /root/rk3568/rk_project/drv_project/test_platform_led/drv/led_drv.mod

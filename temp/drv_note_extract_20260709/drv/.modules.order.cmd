@@ -1,0 +1,1 @@
+cmd_/root/rk3568/rk_project/drv_project/test_platform_led/drv/modules.order := {   echo /root/rk3568/rk_project/drv_project/test_platform_led/drv/led_drv.ko; :; } | awk '!x[$$0]++' - > /root/rk3568/rk_project/drv_project/test_platform_led/drv/modules.order

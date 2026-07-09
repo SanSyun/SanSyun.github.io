@@ -1,0 +1,3 @@
+0x00000000	led_class_create_device	/root/rk3568/rk_project/drv_project/test_platform_led/drv/led_drv	EXPORT_SYMBOL	
+0x00000000	led_class_destroy_device	/root/rk3568/rk_project/drv_project/test_platform_led/drv/led_drv	EXPORT_SYMBOL	
+0x00000000	register_led_operations	/root/rk3568/rk_project/drv_project/test_platform_led/drv/led_drv	EXPORT_SYMBOL	

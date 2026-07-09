@@ -72,41 +72,9 @@ static struct platform_driver rk3568_gpio_driver = {
 
 整体链路可以这样理解：
 
-```text
-应用程序
-  |
-  | open/read/write /dev/led
-  v
-字符设备层 led_drv.c
-  |
-  | p_led_opr->init/read/write(minor)
-  v
-GPIO 操作层 led_dev.c
-  |
-  | ioremap/readl/writel
-  v
-RK3568 GPIO0_C0 寄存器
-```
-
 ![应用程序到 RK3568 GPIO 寄存器的调用链](/images/notes/linux_platform/1783560808373.png)
 
 同时，设备创建流程是另一条线：
-
-```text
-board_rk3568_led.c 注册 platform_device
-  |
-  v
-platform 总线匹配 .name = "led"
-  |
-  v
-led_dev.c 的 probe 被调用
-  |
-  v
-platform_get_resource 读取 GPIO 资源
-  |
-  v
-led_class_create_device 创建设备节点
-```
 
 ![platform 设备和驱动匹配后的设备节点创建流程](/images/notes/linux_platform/1783560997153.png)
 
@@ -152,7 +120,7 @@ GROUP_PIN(0, RK_PC0)
 GROUP_PIN(3, RK_PB2)
 ```
 
-从回看角度来说，这一层的价值是：先把硬件资源抽象成统一编号，再让驱动去解析这个编号。
+这一层的价值是：先把硬件资源抽象成统一编号，再让驱动去解析这个编号。
 
 # 五、`board_rk3568_led.c`：设备只负责描述资源
 
@@ -328,7 +296,7 @@ static int rk3568_gpio_remove(struct platform_device *pdev)
 - `probe` 里创建设备节点
 - `remove` 里销毁设备节点
 
-学习驱动时可以养成一个习惯：每写一个申请动作，都要想清楚对应的释放动作在哪里。
+需要注意的是，每写一个申请动作，都要想清楚对应的释放动作在哪里。
 
 # 七、GPIO 初始化和读写逻辑
 
@@ -622,7 +590,7 @@ platform 驱动层解决的是内核设备模型问题：
 
 两者不是互相替代，而是上下配合。
 
-## 4. 当前例程仍然是学习版
+## 4. 后续可完善的点
 
 这份代码适合理解框架，但还有几个后续可以继续完善的点：
 
@@ -632,26 +600,14 @@ platform 驱动层解决的是内核设备模型问题：
 - `board_rk3568_led_init` 每次 `open` 都会执行 `ioremap`，后续可以考虑在设备初始化阶段集中映射，并在退出时 `iounmap`
 - 实际项目中更推荐用设备树描述板级资源，而不是手动注册 `platform_device`
 
-这些问题并不影响用它学习 platform 框架，但后面写更完整驱动时要逐步补上。
-
 # 十一、小结
 
-本文把 RK3568 板载 LED 驱动放到了 platform 总线设备驱动框架下。回看时可以抓住这几句话：
+本文把 RK3568 板载 LED 驱动放到了 platform 总线设备驱动框架下。主要关注：
 
 1. `platform_device` 描述设备资源，本文中就是 `GPIO0_C0`
 2. `platform_driver` 描述驱动能力，匹配成功后从 `probe` 开始工作
 3. 字符设备层继续提供 `/dev/led`，让应用层用文件接口控制 LED
 4. GPIO 控制本质上仍然是 `ioremap`、`readl`、`writel` 操作寄存器
 5. 总线设备驱动框架的价值，是把资源描述、驱动操作和用户接口拆开，让代码更容易扩展
-
-如果把前面几篇串起来看，学习路径大概是：
-
-```text
-字符设备驱动
-  -> GPIO 寄存器控制
-  -> 分层与资源分离
-  -> platform 总线设备驱动框架
-  -> 设备树驱动
-```
 
 这一篇就是从“手写 GPIO 字符设备驱动”过渡到“理解 Linux 设备驱动模型”的中间台阶。

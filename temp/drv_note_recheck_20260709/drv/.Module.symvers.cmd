@@ -1,0 +1,1 @@
+cmd_/root/rk3568/rk_project/drv_project/test_platform_led/drv/Module.symvers := sed 's/\.ko$$/\.o/' /root/rk3568/rk_project/drv_project/test_platform_led/drv/modules.order | scripts/mod/modpost     -o /root/rk3568/rk_project/drv_project/test_platform_led/drv/Module.symvers -e -i Module.symvers   -T -
