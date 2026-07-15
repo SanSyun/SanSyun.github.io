@@ -362,7 +362,7 @@ const isActive = (href: string) => {
 
   .brand-block {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     gap: 12px;
   }
 
@@ -1206,15 +1206,17 @@ const isActive = (href: string) => {
 
   .brand-block {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     gap: 12px;
   }
 
   .brand-icon {
     display: block;
     flex: 0 0 auto;
-    width: 94px;
-    height: 94px;
+    width: auto;
+    height: auto;
+    aspect-ratio: 6 / 7;
+    align-self: stretch;
   }
 
   .brand-icon img {
@@ -1824,11 +1826,6 @@ const isActive = (href: string) => {
 
     .brand-block {
       gap: 10px;
-    }
-
-    .brand-icon {
-      width: 72px;
-      height: 72px;
     }
 
     .brand-copy {
