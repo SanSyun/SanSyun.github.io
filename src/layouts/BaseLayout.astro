@@ -50,9 +50,13 @@ const isActive = (href: string) => {
         <header class="site-header">
           <div class="header-row">
             <div class="brand-block">
-              <span class="brand-kicker">Personal notes</span>
-              <a class="brand" href={copy.nav[0].href}>SUNCHEN</a>
-              <p class="brand-note">{copy.brandNote}</p>
+              <a class="brand-icon" href={copy.nav[0].href} aria-label="Home">
+                <img src="/favicon.svg" alt="" width="94" height="94" />
+              </a>
+              <div class="brand-copy">
+                <a class="brand-kicker" href={copy.nav[0].href}>Personal notes</a>
+                <p class="brand-note">{copy.brandNote}</p>
+              </div>
             </div>
             <nav aria-label="Primary">
               <ul class="nav-list">
@@ -1199,19 +1203,39 @@ const isActive = (href: string) => {
   }
 
   .brand-block {
-    gap: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-icon {
+    display: block;
+    flex: 0 0 auto;
+    width: 94px;
+    height: 94px;
+  }
+
+  .brand-icon img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .brand-copy {
+    display: grid;
+    align-content: center;
+    gap: 18px;
   }
 
   .brand-kicker {
     width: fit-content;
     display: inline-flex;
     align-items: center;
-    padding: 2px 8px;
+    padding: 7px 12px;
     color: #111111;
     background: #facc15;
     border: 2px solid var(--card-bd);
     box-shadow: var(--px-d1) var(--px-shadow);
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0;
@@ -1237,7 +1261,8 @@ const isActive = (href: string) => {
   }
 
   .brand-note {
-    font-size: 0.92rem;
+    font-size: 1.15rem;
+    line-height: 1.25;
     color: var(--muted);
   }
 
@@ -1793,6 +1818,24 @@ const isActive = (href: string) => {
 
     .brand {
       font-size: 2rem;
+    }
+
+    .brand-block {
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 72px;
+      height: 72px;
+    }
+
+    .brand-copy {
+      gap: 10px;
+    }
+
+    .brand-kicker {
+      padding: 5px 9px;
+      font-size: 0.8rem;
     }
 
     .brand-note,
