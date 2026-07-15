@@ -362,7 +362,7 @@ const isActive = (href: string) => {
 
   .brand-block {
     display: flex;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 12px;
   }
 
@@ -1206,17 +1206,15 @@ const isActive = (href: string) => {
 
   .brand-block {
     display: flex;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 12px;
   }
 
   .brand-icon {
     display: block;
     flex: 0 0 auto;
-    width: auto;
-    height: auto;
-    aspect-ratio: 6 / 7;
-    align-self: stretch;
+    width: 73px;
+    height: 85px;
   }
 
   .brand-icon img {
@@ -1225,9 +1223,12 @@ const isActive = (href: string) => {
   }
 
   .brand-copy {
-    display: grid;
-    align-content: center;
-    gap: 18px;
+    display: flex;
+    height: 85px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0;
   }
 
   .brand-kicker {
@@ -1828,8 +1829,13 @@ const isActive = (href: string) => {
       gap: 10px;
     }
 
+    .brand-icon {
+      width: 52px;
+      height: 61px;
+    }
+
     .brand-copy {
-      gap: 10px;
+      height: 61px;
     }
 
     .brand-kicker {
