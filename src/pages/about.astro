@@ -3,41 +3,56 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="About | SUNCHEN" description="SUNCHEN's background, technical focus, and contact information.">
-  <section class="content-grid about-grid">
-    <div class="content-card panel">
-      <h2 class="section-title">Current focus</h2>
-      <div class="list-block">
-        <article class="timeline-item">
-          <h3>Embedded Linux Drivers</h3>
-          <p>I focus on device drivers, kernel interfaces, hardware-software co-debugging, and more stable low-level system implementations.</p>
-        </article>
-        <article class="timeline-item">
-          <h3>RTOS</h3>
-          <p>I continue to build practical understanding of scheduling, interrupts, resource management, and engineering workflows in real-time systems.</p>
-        </article>
-        <article class="timeline-item">
-          <h3>MCU</h3>
-          <p>I am interested in peripheral drivers, communication interfaces, board-level debugging, and software design for resource-constrained environments.</p>
-        </article>
-      </div>
+  <section class="about-focus" aria-labelledby="current-focus-title">
+    <div class="about-section-header">
+      <h2 id="current-focus-title" class="page-title">Current focus</h2>
     </div>
 
-    <aside class="content-card panel">
-      <h2 class="section-title">Contact and direction</h2>
-      <div class="list-block">
-        <article class="note-card">
-          <h3>Target roles</h3>
-          <p>Embedded Linux Drivers / RTOS / MCU</p>
-        </article>
-        <article class="note-card">
-          <h3>Email</h3>
-          <p><a class="text-link" href="mailto:schen030@163.com">schen0303@163.com</a></p>
-        </article>
-        <article class="note-card">
-          <h3>Motto</h3>
-          <p>Keep Hungry</p>
-        </article>
-      </div>
-    </aside>
+    <div class="about-focus-grid">
+      <article class="about-focus-card about-focus-card--kernel">
+        <div class="about-focus-topline">
+          <span class="about-focus-number">01</span>
+          <span class="about-focus-domain">Kernel space</span>
+        </div>
+        <h3>Embedded Linux Drivers</h3>
+        <p>I build and study device drivers, kernel interfaces, device trees, and hardware-software debugging for reliable low-level systems.</p>
+        <ul class="tag-list">
+          <li>Device Tree</li>
+          <li>GPIO / IRQ</li>
+          <li>DMA</li>
+          <li>poll</li>
+        </ul>
+      </article>
+
+      <article class="about-focus-card about-focus-card--edge">
+        <div class="about-focus-topline">
+          <span class="about-focus-number">02</span>
+          <span class="about-focus-domain">Edge intelligence</span>
+        </div>
+        <h3>Edge AI Systems</h3>
+        <p>I explore efficient model deployment, hardware acceleration, and system integration for intelligent applications running on edge devices.</p>
+        <ul class="tag-list">
+          <li>Deployment</li>
+          <li>Inference</li>
+          <li>NPU</li>
+          <li>Linux</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="about-info-grid" aria-label="Contact and direction">
+    <article class="about-info-card">
+      <span class="small-label">Target direction</span>
+      <p>Embedded Linux Drivers<br />Edge AI Systems</p>
+    </article>
+    <article class="about-info-card">
+      <span class="small-label">Email</span>
+      <p><a class="text-link" href="mailto:schen030@163.com">schen0303@163.com</a></p>
+    </article>
+    <article class="about-info-card">
+      <span class="small-label">Motto</span>
+      <p>Stay curious. Keep building.</p>
+    </article>
   </section>
 </BaseLayout>

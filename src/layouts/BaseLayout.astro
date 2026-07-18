@@ -1324,7 +1324,7 @@ const isActive = (href: string) => {
   }
 
   .page-title {
-    max-width: 820px;
+    max-width: none;
     font-size: 2.65rem;
     line-height: 1.08;
   }
@@ -1345,6 +1345,116 @@ const isActive = (href: string) => {
   .page-header {
     gap: 14px;
     margin-bottom: 26px;
+  }
+
+  .about-section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--card-bd);
+  }
+
+  .about-focus-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .about-focus-card {
+    min-width: 0;
+    min-height: 272px;
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+    background: var(--bg);
+    border: 2px solid var(--card-bd);
+    box-shadow: var(--px-d2) var(--px-shadow);
+  }
+
+  .about-focus-card--kernel {
+    border-top: 8px solid var(--p0);
+  }
+
+  .about-focus-card--edge {
+    border-top: 8px solid var(--p2);
+  }
+
+  .about-focus-topline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+
+  .about-focus-number {
+    font-family: var(--font-ui);
+    font-size: 2.7rem;
+    font-weight: 800;
+    line-height: 0.85;
+  }
+
+  .about-focus-domain {
+    padding: 5px 8px;
+    color: #111111;
+    border: 2px solid var(--card-bd);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .about-focus-card--kernel .about-focus-domain {
+    background: var(--p0);
+  }
+
+  .about-focus-card--edge .about-focus-domain {
+    background: var(--p2);
+  }
+
+  .about-focus-card h3 {
+    margin: 0 0 10px;
+    font-family: var(--font-ui);
+    font-size: 1.45rem;
+    line-height: 1.2;
+  }
+
+  .about-focus-card p {
+    flex: 1;
+    margin: 0 0 20px;
+    color: var(--body);
+    line-height: 1.6;
+  }
+
+  .about-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 22px;
+  }
+
+  .about-info-card {
+    min-width: 0;
+    min-height: 128px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px;
+    background: var(--bg);
+    border: 2px solid var(--card-bd);
+    box-shadow: var(--px-d2) var(--px-shadow);
+  }
+
+  .about-info-card p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
   }
 
   .panel,
@@ -1857,6 +1967,30 @@ const isActive = (href: string) => {
 
     .page-title {
       font-size: 2rem;
+    }
+
+    .about-section-header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .about-focus-grid,
+    .about-info-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-focus-card {
+      min-height: 0;
+      padding: 18px;
+    }
+
+    .about-focus-topline {
+      margin-bottom: 24px;
+    }
+
+    .about-info-card {
+      min-height: 112px;
     }
 
     .article-title {
