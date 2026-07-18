@@ -1,5 +1,5 @@
 ---
-title: "Linux驱动开发：内核定时器消抖下的按键中断设计"
+title: "Linux驱动开发：按键驱动的阻塞 IO、poll 与异步通知"
 description: "梳理 Linux 驱动中的阻塞与非阻塞 IO、等待队列、poll 和异步通知，并总结按键中断程序相对上一版的改进。"
 date: "2026-07-16"
 draft: false
